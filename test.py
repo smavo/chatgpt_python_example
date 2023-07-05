@@ -11,15 +11,19 @@ openai.api_key = api_key
 # print(modelos)
 
 modelo = 'text-davinci-002'
-pregunta = 'Puedes crear un poema de 15 palabras sobre el amor'
+pregunta = 'Elige un nombre para un gato macho'
 
 respuesta = openai.Completion.create(
     engine=modelo,
     prompt=pregunta,
-    n=1,
-    temperature=0.1
+    n=3,
+    temperature=1,
+    max_tokens=100
 )
 
-texto_generado = respuesta.choice[0].text.strip()
+# texto_generado = respuesta.choice[0].text.strip()
+# print(texto_generado)
 
-print(texto_generado)
+for idx, opcion in enumerate(respuesta.choices):
+    texto_generado = opcion.text.strip()
+    print(f"Respuesta {idx + 1}: {texto_generado}\n")
